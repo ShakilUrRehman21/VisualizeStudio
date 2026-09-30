@@ -8,6 +8,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Normalize double slashes in incoming request paths (e.g. //api/generate -> /api/generate)
+app.use((req, res, next) => {
+    if (req.url && req.url.includes('//')) {
+        req.url = req.url.replace(/\/+/g, '/');
+    }
+    next();
+});
+
 // Health check route
 app.get('/', (req, res) => {
     res.json({ status: "ok", name: "Visualize Studio API", version: "1.0.0" });
@@ -134,6 +142,6 @@ const generateHandler = async (req, res) => {
 app.post('/api/generate', generateHandler);
 app.post('/generate-our-image-brotha', generateHandler);
 
-const PORT = 1312;
+const PORT = process.env.PORT || 1312;
 
-app.listen(PORT, () => console.log(`[Visualize Studio Server] Active on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`[Visualize Studio Server] Active on port ${PORT}`));
