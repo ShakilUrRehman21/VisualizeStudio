@@ -1,10 +1,10 @@
-import './App.css';
-import Nvidia from "./components/Nvidia";
+import React from 'react';
+import VisualizeStudio from './components/VisualizeStudio';
 
 function App() {
   return (
     <div className="App">
-      <Nvidia/>
+      <VisualizeStudio />
     </div>
   );
 }
