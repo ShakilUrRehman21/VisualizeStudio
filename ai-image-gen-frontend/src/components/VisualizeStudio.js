@@ -36,7 +36,9 @@ const VisualizeStudio = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [copiedNotification, setCopiedNotification] = useState(false);
 
-  const backendBase = process.env.REACT_APP_API_URL || 'http://localhost:1312';
+  const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+  const defaultBackend = isProduction ? 'https://visualizestudio.onrender.com' : 'http://localhost:1312';
+  const backendBase = process.env.REACT_APP_API_URL || defaultBackend;
   const invokeUrl = `${backendBase}/api/generate`;
 
   const handleRandomPrompt = () => {

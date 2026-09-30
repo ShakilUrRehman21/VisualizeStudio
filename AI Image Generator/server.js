@@ -8,6 +8,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check route
+app.get('/', (req, res) => {
+    res.json({ status: "ok", name: "Visualize Studio API", version: "1.0.0" });
+});
+
 const nvidiaInvokeUrl = "https://ai.api.nvidia.com/v1/genai/stabilityai/stable-diffusion-xl";
 const API_KEY = process.env.API_KEY;
 
